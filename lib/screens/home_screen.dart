@@ -17,7 +17,7 @@ class HomeScreen extends StatelessWidget {
         ],
         title: const Center(child: Text('Peliculas en cine 4k')),
       ),
-      body: Column(
+      body: const Column(
         children: [CardSwiper()],
       ),
     );
