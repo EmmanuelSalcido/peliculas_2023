@@ -12,7 +12,10 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Peliculas Legales',
       initialRoute: 'home',
-      routes: {'home': (_) => HomeScreen(), 'details': (_) => DetailsScreen()},
+      routes: {
+        'home': (_) => const HomeScreen(),
+        'details': (_) => const DetailsScreen()
+      },
     );
   }
 }
