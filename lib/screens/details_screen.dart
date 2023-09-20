@@ -11,7 +11,18 @@ class DetailsScreen extends StatelessWidget {
     return const Scaffold(
       body: CustomScrollView(
         //widget con comportaminetos predifinidos al scroll
-        slivers: [_CustomAppBar()],
+        slivers: [
+          _CustomAppBar(),
+          SliverList(
+            delegate: SliverChildListDelegate.fixed(
+              [
+                _PosterAndTitle(),
+                _PosterAndTitle(),
+                _PosterAndTitle(),
+              ],
+            ),
+          )
+        ],
       ),
     );
   }
@@ -26,7 +37,8 @@ class _CustomAppBar extends StatelessWidget {
       backgroundColor: Colors.indigoAccent,
       expandedHeight: 200,
       floating: false,
-      //TODO: QUE NO DESAPAREZCA
+      pinned: true,
+
       //widget para que se ajuste al tamaño
       flexibleSpace: FlexibleSpaceBar(
         centerTitle: true,
