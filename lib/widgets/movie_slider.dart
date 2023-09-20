@@ -1,7 +1,4 @@
 // ignore_for_file: unused_element, camel_case_types
-
-import 'dart:ffi';
-
 import 'package:flutter/material.dart';
 
 class MovieSlider extends StatelessWidget {
@@ -30,8 +27,8 @@ class MovieSlider extends StatelessWidget {
           Expanded(
             child: ListView.builder(
               scrollDirection: Axis.horizontal,
-              itemCount:20,
-               itemBuilder: 
+              itemCount: 20,
+              itemBuilder: (_, int index) => const _moviePoster(),
             ),
           )
         ],
