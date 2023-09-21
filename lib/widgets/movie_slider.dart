@@ -44,7 +44,7 @@ class _moviePoster extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: 130,
-      height: 210,
+      height: 220,
       margin: const EdgeInsets.symmetric(horizontal: 10),
       child: Column(
         children: [
@@ -56,7 +56,7 @@ class _moviePoster extends StatelessWidget {
                 placeholder: AssetImage('assets/camara.jpg'),
                 image: AssetImage('assets/camara.jpg'),
                 width: 130,
-                height: 165,
+                height: 175,
               ),
             ),
           ),

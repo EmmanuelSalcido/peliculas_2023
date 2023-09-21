@@ -125,3 +125,20 @@ class _PosterAndTitle extends StatelessWidget {
     );
   }
 }
+
+class _Overview extends StatelessWidget {
+  const _Overview({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.symmetric(
+          horizontal: 20, vertical: 10), //constructor con nombre el symmetric
+      child: const Text(
+        'Consequat deserunt aute est commodo dolore proident et consectetur magna. Nulla irure ipsum voluptate fugiat dolor cillum qui laborum proident sit eu do. Officia ex proident cillum est proident enim reprehenderit in sunt officia magna mollit. Nisi cillum eu magna irure. Irure nostrud sit irure esse ex Lorem officia.',
+        textAlign: TextAlign.justify,
+        style: TextStyle(fontSize: 15),
+      ),
+    );
+  }
+}

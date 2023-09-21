@@ -65,3 +65,10 @@ flutter {
 }
 
 dependencies {}
+android {
+    compileSdkVersion 34
+
+    sourceSets {
+        main.java.srcDirs += 'src/main/kotlin'
+    }
+}
