@@ -1,4 +1,3 @@
-// ignore_for_file: unused_element, camel_case_types
 import 'package:flutter/material.dart';
 
 class MovieSlider extends StatelessWidget {
@@ -9,15 +8,15 @@ class MovieSlider extends StatelessWidget {
     final size = MediaQuery.of(context).size;
     return Container(
       width: double.infinity,
-      height: size.height * 0.25,
-      color: Colors.red,
+      height: size.height * 0.30,
+      color: Colors.cyan,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           const Padding(
-            padding: EdgeInsets.symmetric(horizontal: 20),
+            padding: EdgeInsets.symmetric(horizontal: 5),
             child: Text(
-              'populares',
+              'Populares',
               style: TextStyle(
                 fontSize: 20,
                 fontWeight: FontWeight.bold,
@@ -28,7 +27,7 @@ class MovieSlider extends StatelessWidget {
             child: ListView.builder(
               scrollDirection: Axis.horizontal,
               itemCount: 20,
-              itemBuilder: (_, int index) => const _moviePoster(),
+              itemBuilder: (_, int index) => _MoviePoster(),
             ),
           )
         ],
@@ -37,15 +36,15 @@ class MovieSlider extends StatelessWidget {
   }
 }
 
-class _moviePoster extends StatelessWidget {
-  const _moviePoster({super.key});
+class _MoviePoster extends StatelessWidget {
+  const _MoviePoster({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Container(
       width: 130,
-      height: 220,
-      margin: const EdgeInsets.symmetric(horizontal: 10),
+      height: 250,
+      margin: const EdgeInsets.symmetric(horizontal: 5),
       child: Column(
         children: [
           GestureDetector(
@@ -53,17 +52,17 @@ class _moviePoster extends StatelessWidget {
             child: ClipRRect(
               borderRadius: BorderRadius.circular(20),
               child: const FadeInImage(
-                placeholder: AssetImage('assets/camara.jpg'),
-                image: AssetImage('assets/camara.jpg'),
+                placeholder: AssetImage('assets/no-image.jpg'),
+                image: AssetImage('assets/no-image.jpg'),
                 width: 130,
-                height: 175,
+                height: 50,
               ),
             ),
           ),
-          const SizedBox(height: 5),
+          const SizedBox(height: 10),
           const Text(
-            'aqua',
-            maxLines: 2,
+            'Aliqua amet qui elit ad irure anim ullamco sit deserunt nisi eiusmod excepteur nisi sunt.',
+            maxLines: 3,
             overflow: TextOverflow.ellipsis,
             textAlign: TextAlign.center,
           )

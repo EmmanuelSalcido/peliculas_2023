@@ -1,16 +1,16 @@
-import 'package:flutter/material.dart'; //stl
+import 'package:flutter/material.dart';
 
 class DetailsScreen extends StatelessWidget {
   const DetailsScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    //recibir argumentos
+    //Recibir argumentos de otra pantalla
     final String movie =
-        ModalRoute.of(context)?.settings.arguments.toString() ?? 'sin nombre';
+        ModalRoute.of(context)?.settings.arguments.toString() ?? 'Sin nombre';
     return const Scaffold(
       body: CustomScrollView(
-        //widget con comportaminetos predifinidos al scroll
+        //Widget con comportamientos predefinidos al scroll
         slivers: [
           _CustomAppBar(),
           SliverList(
@@ -35,15 +35,14 @@ class _CustomAppBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return SliverAppBar(
       backgroundColor: Colors.indigoAccent,
-      expandedHeight: 200,
+      expandedHeight: 180,
       floating: false,
       pinned: true,
-
-      //widget para que se ajuste al tamaño
+      //wIDGET PARA QUE SE AGUSTE AL TAMAÑO
       flexibleSpace: FlexibleSpaceBar(
         centerTitle: true,
         //Eliminar padding
-        titlePadding: const EdgeInsets.all(0),
+        titlePadding: EdgeInsets.all(0),
         title: Container(
           width: double.infinity,
           alignment: Alignment.bottomCenter,
@@ -53,9 +52,9 @@ class _CustomAppBar extends StatelessWidget {
             style: TextStyle(fontSize: 18),
           ),
         ),
-        background: const FadeInImage(
-          placeholder: AssetImage('assets/camara.jpg'),
-          image: AssetImage('assets/camara.jpg'),
+        background: FadeInImage(
+          placeholder: AssetImage('assets/loading.gif'),
+          image: AssetImage('assets/no-image.jpg'),
         ),
       ),
     );
@@ -74,16 +73,13 @@ class _PosterAndTitle extends StatelessWidget {
         children: [
           ClipRRect(
             borderRadius: BorderRadius.circular(20),
-            child: const FadeInImage(
-              //poner la imagen
-              placeholder: AssetImage('assets/camara.jpg'),
-              image: AssetImage('assets/camara.jpg'),
-              height: 250,
+            child: FadeInImage(
+              placeholder: AssetImage('assets/no-image.jpg'),
+              image: AssetImage('assets/no-image.jpg'),
+              height: 220,
             ),
           ),
-          const SizedBox(
-            width: 20,
-          ),
+          SizedBox(width: 20),
           const Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -95,7 +91,7 @@ class _PosterAndTitle extends StatelessWidget {
                   maxLines: 2,
                 ),
                 Text(
-                  'movie.titleOriginal',
+                  'movie.titleOriganl',
                   style: TextStyle(fontSize: 18),
                   textAlign: TextAlign.center,
                   overflow: TextOverflow.ellipsis,
@@ -110,7 +106,7 @@ class _PosterAndTitle extends StatelessWidget {
                     ),
                     SizedBox(width: 5),
                     Text(
-                      'movie.VotosAverage',
+                      'movie.voteAverage',
                       style: TextStyle(fontSize: 15),
                       overflow: TextOverflow.ellipsis,
                       maxLines: 2,
@@ -121,23 +117,6 @@ class _PosterAndTitle extends StatelessWidget {
             ),
           )
         ],
-      ),
-    );
-  }
-}
-
-class _Overview extends StatelessWidget {
-  const _Overview({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.symmetric(
-          horizontal: 20, vertical: 10), //constructor con nombre el symmetric
-      child: const Text(
-        'Consequat deserunt aute est commodo dolore proident et consectetur magna. Nulla irure ipsum voluptate fugiat dolor cillum qui laborum proident sit eu do. Officia ex proident cillum est proident enim reprehenderit in sunt officia magna mollit. Nisi cillum eu magna irure. Irure nostrud sit irure esse ex Lorem officia.',
-        textAlign: TextAlign.justify,
-        style: TextStyle(fontSize: 15),
       ),
     );
   }
