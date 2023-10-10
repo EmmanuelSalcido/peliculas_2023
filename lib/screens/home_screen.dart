@@ -8,27 +8,27 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    //Colocamos la instancia de MoviesProvider
+    //Colocar la intancia de movies provider
     final moviesProvider = Provider.of<MoviesProvider>(context);
     return Scaffold(
       appBar: AppBar(
-        elevation: 0,
+        elevation: 0, //sombra
         actions: [
           IconButton(
             onPressed: () {},
             icon: const Icon(Icons.search_outlined),
           )
         ],
-        title: const Center(
-          child: Text('Peliculas en cine'),
-        ),
+        title: const Center(child: Text('peliculas en el cine')),
       ),
       body: Column(
         children: [
           CardSwiper(
             movies: moviesProvider.onDisplayMovies,
           ),
-          MovieSlider()
+          MovieSlider(
+            movies: moviesProvider.popularMovies,
+          )
         ],
       ),
     );

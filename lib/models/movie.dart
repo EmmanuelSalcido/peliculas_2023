@@ -33,11 +33,16 @@ class Movie {
     required this.voteCount,
   });
 
-  get fullposterimg {
-    if (this.posterPath != null) {
-      return 'https://image.tmdb.org/t/p/w500${this.posterPath}';
-    }
-    return 'https://i.stack.imgur.com/GNhxO.png';
+  get fullPosterImg {
+    if (this.posterPath != null)
+      return 'https://image.tmdb.org/t/p/w500${this.posterPath}'; //si es nulo entra aqui
+    return 'https://i.stack.imgur.com/GNhxO.png'; //si no es nulo entra aca
+  }
+
+  get backImg {
+    if (this.backdropPath != null)
+      return 'https://image.tmdb.org/t/p/w500${this.backdropPath}'; //si es nulo entra aqui
+    return 'https://i.stack.imgur.com/GNhxO.png'; //si no es nulo entra aca
   }
 
   factory Movie.fromRawJson(String str) => Movie.fromJson(json.decode(str));
@@ -78,10 +83,11 @@ class Movie {
         "vote_average": voteAverage,
         "vote_count": voteCount,
       };
-}*/
-/*
+}
+
 enum OriginalLanguage { EN, ZH }
 
+//enumerable
 final originalLanguageValues =
     EnumValues({"en": OriginalLanguage.EN, "zh": OriginalLanguage.ZH});
 
