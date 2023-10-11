@@ -34,52 +34,53 @@ class PopularResponse {
         "results": List<dynamic>.from(results.map((x) => x.toJson())),
         "total_pages": totalPages,
         "total_results": totalResults,
-    };
+      };
 }
 
-class Result {
-    bool adult;
-    String backdropPath;
-    List<int> genreIds;
-    int id;
-    OriginalLanguage originalLanguage;
-    String originalTitle;
-    String overview;
-    double popularity;
-    String posterPath;
-    DateTime releaseDate;
-    String title;
-    bool video;
-    double voteAverage;
-    int voteCount;
+class Movie {
+  bool adult;
+  String backdropPath;
+  List<int> genreIds;
+  int id;
+  OriginalLanguage originalLanguage;
+  String originalTitle;
+  String overview;
+  double popularity;
+  String posterPath;
+  DateTime releaseDate;
+  String title;
+  bool video;
+  double voteAverage;
+  int voteCount;
 
-    Result({
-        required this.adult,
-        required this.backdropPath,
-        required this.genreIds,
-        required this.id,
-        required this.originalLanguage,
-        required this.originalTitle,
-        required this.overview,
-        required this.popularity,
-        required this.posterPath,
-        required this.releaseDate,
-        required this.title,
-        required this.video,
-        required this.voteAverage,
-        required this.voteCount,
-    });
+  Movie({
+    required this.adult,
+    required this.backdropPath,
+    required this.genreIds,
+    required this.id,
+    required this.originalLanguage,
+    required this.originalTitle,
+    required this.overview,
+    required this.popularity,
+    required this.posterPath,
+    required this.releaseDate,
+    required this.title,
+    required this.video,
+    required this.voteAverage,
+    required this.voteCount,
+  });
 
-    factory Result.fromRawJson(String str) => Result.fromJson(json.decode(str));
+  factory Movie.fromRawJson(String str) => Movie.fromJson(json.decode(str));
 
-    String toRawJson() => json.encode(toJson());
+  String toRawJson() => json.encode(toJson());
 
-    factory Result.fromJson(Map<String, dynamic> json) => Result(
+  factory Movie.fromJson(Map<String, dynamic> json) => Movie(
         adult: json["adult"],
         backdropPath: json["backdrop_path"],
         genreIds: List<int>.from(json["genre_ids"].map((x) => x)),
         id: json["id"],
-        originalLanguage: originalLanguageValues.map[json["original_language"]]!,
+        originalLanguage:
+            originalLanguageValues.map[json["original_language"]]!,
         originalTitle: json["original_title"],
         overview: json["overview"],
         popularity: json["popularity"]?.toDouble(),
@@ -89,9 +90,9 @@ class Result {
         video: json["video"],
         voteAverage: json["vote_average"]?.toDouble(),
         voteCount: json["vote_count"],
-    );
+      );
 
-    Map<String, dynamic> toJson() => {
+  Map<String, dynamic> toJson() => {
         "adult": adult,
         "backdrop_path": backdropPath,
         "genre_ids": List<dynamic>.from(genreIds.map((x) => x)),
@@ -101,36 +102,32 @@ class Result {
         "overview": overview,
         "popularity": popularity,
         "poster_path": posterPath,
-        "release_date": "${releaseDate.year.toString().padLeft(4, '0')}-${releaseDate.month.toString().padLeft(2, '0')}-${releaseDate.day.toString().padLeft(2, '0')}",
+        "release_date":
+            "${releaseDate.year.toString().padLeft(4, '0')}-${releaseDate.month.toString().padLeft(2, '0')}-${releaseDate.day.toString().padLeft(2, '0')}",
         "title": title,
         "video": video,
         "vote_average": voteAverage,
         "vote_count": voteCount,
-    };
+      };
 }
 
-enum OriginalLanguage {
-    EN,
-    FR,
-    IS,
-    TE
-}
+enum OriginalLanguage { EN, FR, IS, TE }
 
 final originalLanguageValues = EnumValues({
-    "en": OriginalLanguage.EN,
-    "fr": OriginalLanguage.FR,
-    "is": OriginalLanguage.IS,
-    "te": OriginalLanguage.TE
+  "en": OriginalLanguage.EN,
+  "fr": OriginalLanguage.FR,
+  "is": OriginalLanguage.IS,
+  "te": OriginalLanguage.TE
 });
 
 class EnumValues<T> {
-    Map<String, T> map;
-    late Map<T, String> reverseMap;
+  Map<String, T> map;
+  late Map<T, String> reverseMap;
 
-    EnumValues(this.map);
+  EnumValues(this.map);
 
-    Map<T, String> get reverse {
-        reverseMap = map.map((k, v) => MapEntry(v, k));
-        return reverseMap;
-    }*/
+  Map<T, String> get reverse {
+    reverseMap = map.map((k, v) => MapEntry(v, k));
+    return reverseMap;
+  }*/
 }

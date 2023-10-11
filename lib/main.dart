@@ -6,7 +6,6 @@ import 'providers/movies_provider.dart';
 
 void main() => runApp(const AppState());
 
-//Modo perezoso, no se crea hasta que alguien lo cree
 class AppState extends StatelessWidget {
   const AppState({super.key});
 
@@ -14,13 +13,14 @@ class AppState extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
+        //Lista de providers que se van a tener
         ChangeNotifierProvider(
+          //avisa que hay un provider
           create: (_) => MoviesProvider(),
-          //Que se cree en cuanto se cree la aplicacion
           lazy: false,
         )
       ],
-      child: MyApp(),
+      child: const MyApp(),
     );
   }
 }
@@ -31,11 +31,13 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      debugShowCheckedModeBanner:
-          false, //quitar la madre del debug pq me estorbaba
-      title: 'peliculas',
-      initialRoute: 'home',
-      routes: {'home': (_) => HomeScreen(), 'details': (_) => DetailScreen()},
-    );
+        debugShowCheckedModeBanner: false, //para quitar la parte que dice debug
+        title: 'Peliculas',
+        initialRoute: 'home',
+        routes: {
+          'home': (_) => HomeScreen(),
+          'details': (_) => DetailsScreen(),
+        } //establece las rutas
+        );
   }
 }

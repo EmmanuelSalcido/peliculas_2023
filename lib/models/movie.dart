@@ -34,20 +34,24 @@ class Movie {
   });
 
   get fullPosterImg {
-    if (this.posterPath != null)
-      return 'https://image.tmdb.org/t/p/w500${this.posterPath}'; //si es nulo entra aqui
-    return 'https://i.stack.imgur.com/GNhxO.png'; //si no es nulo entra aca
+    if (this.posterPath != null) {
+      return 'https://image.tmdb.org/t/p/w500${this.posterPath}';
+    }
+    //return 'https://static.vecteezy.com/system/resources/previews/005/337/799/non_2x/icon-image-not-found-free-vector.jpg';
+    return 'http://i.stack.imgur.com/GNhxO.png';
   }
 
-  get backImg {
-    if (this.backdropPath != null)
-      return 'https://image.tmdb.org/t/p/w500${this.backdropPath}'; //si es nulo entra aqui
-    return 'https://i.stack.imgur.com/GNhxO.png'; //si no es nulo entra aca
+  get backImage {
+    if (this.backdropPath != null) {
+      return 'https://image.tmdb.org/t/p/w500${this.backdropPath}';
+    }
+    //return 'https://static.vecteezy.com/system/resources/previews/005/337/799/non_2x/icon-image-not-found-free-vector.jpg';
+    return 'http://i.stack.imgur.com/GNhxO.png';
   }
 
   factory Movie.fromRawJson(String str) => Movie.fromJson(json.decode(str));
 
-  //String toRawJson() => json.encode(toJson());
+  // String toRawJson() => json.encode(toJson());
 
   factory Movie.fromJson(Map<String, dynamic> json) => Movie(
         adult: json["adult"],
@@ -65,8 +69,8 @@ class Movie {
         voteAverage: json["vote_average"]?.toDouble(),
         voteCount: json["vote_count"],
       );
-/*
-  Map<String, dynamic> toJson() => {
+
+  /*Map<String, dynamic> toJson() => {
         "adult": adult,
         "backdrop_path": backdropPath,
         "genre_ids": List<dynamic>.from(genreIds.map((x) => x)),
@@ -87,7 +91,6 @@ class Movie {
 
 enum OriginalLanguage { EN, ZH }
 
-//enumerable
 final originalLanguageValues =
     EnumValues({"en": OriginalLanguage.EN, "zh": OriginalLanguage.ZH});
 

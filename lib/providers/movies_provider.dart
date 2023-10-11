@@ -11,38 +11,45 @@ class MoviesProvider extends ChangeNotifier {
   String _apiKey = '9dc27117b000e7e5acfb365fa957971a';
   String _language = 'es-MX';
 
-  List<Movie> onDisplayMovies = [];
+  List<Movie> onDisplayMovies = []; //Lista con las películas
   List<Movie> popularMovies = [];
 
   MoviesProvider() {
     getOnDisplayMovies();
     getPopularMovies();
   }
-
   getOnDisplayMovies() async {
-    var url = Uri.https(_baseUrl, '3/movie/now_playing',
-        {'api_key': _apiKey, 'language': _language, 'page': '1'});
+    //aquí se llena la lista de las peliculas
+    var url = Uri.https(_baseUrl, '3/movie/now_playing', {
+      'api_key': _apiKey,
+      'language': _language,
+      'page': '1',
+    });
 
     final response = await http.get(url);
     final Map<String, dynamic> decodeData = json.decode(response.body);
     //print(decodeData);
     //print(response.body);
-    final nowPLayingResponse = NowPlayingResponse.fromRawJson(response.body);
-    onDisplayMovies = nowPLayingResponse.results;
-    //Le comunicamos a todos los widgets que estan escuchando que se cambio la data por lo tanto se tienen que redibujar
-    notifyListeners();
-    print(nowPLayingResponse.results[0].title);
+    final nowPlayingResponse = NowPlayingResponse.fromRawJson(response
+        .body); //Creación de una variable que aprende la respuesta de la petición (instancia)
+    onDisplayMovies = nowPlayingResponse.results;
+    //le notificamos a los widgets que estan escuchando que se cambió la data por lo tanto se tiene que redibujar
+    notifyListeners(); //Actualiza todo
+    //  print(nowPlayingResponse.results[0].title); //
   }
 
   getPopularMovies() async {
-    var url = Uri.https(_baseUrl, '3/movie/popular',
-        {'api_key': _apiKey, 'language': _language, 'page': '1'});
-
+    var url = Uri.https(_baseUrl, '3/movie/popular', {
+      'api_key': _apiKey,
+      'language': _language,
+      'page': '1',
+    });
     final response = await http.get(url);
 
-    final popularResponse = PopularResponse.fromRawJson(response.body);
+    final popularResponse = PopularResponse.fromRawJson(response
+        .body); //Creación de una variable que aprende la respuesta de la petición
 
-    //Destructurar resultado para cambiar pagina y mantener los actuales
+    //Destructurar resultado para cambiar página y mantener los datos actuales
     popularMovies = [...popularMovies, ...popularResponse.results];
     notifyListeners();
   }

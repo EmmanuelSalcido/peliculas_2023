@@ -1,24 +1,29 @@
 import 'package:flutter/material.dart';
 import 'package:peliculas_2023/models/models.dart';
 
-class DetailScreen extends StatelessWidget {
-  const DetailScreen({super.key});
+class DetailsScreen extends StatelessWidget {
+  const DetailsScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    //recibir argumentos de otra pantalla
+    //recibir argumentos
     final Movie movie = ModalRoute.of(context)?.settings.arguments as Movie;
+
     return Scaffold(
         body: CustomScrollView(
+      //widget con comportamiento predefinido al hacer scroll
       slivers: [
         _CustomAppBar(
           movie: movie,
         ),
         SliverList(
-          delegate: SliverChildListDelegate.fixed(
-            [_PosterAndTitle(movie: movie), _Overview(), MovieSlider2()],
+            delegate: SliverChildListDelegate.fixed([
+          _PosterAndTitle(movie: movie),
+          _Overview(
+            movie: movie,
           ),
-        )
+          _Casting(),
+        ]))
       ],
     ));
   }
@@ -31,27 +36,27 @@ class _CustomAppBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SliverAppBar(
-      backgroundColor: Colors.amberAccent,
-      expandedHeight: 200, //lo mas que se expanda
-      floating: false, //sin sombra
+      backgroundColor: Colors.cyan,
+      expandedHeight: 200,
+      floating: false,
       pinned: true,
-      //Widget para que se ajuste al tama;o
+      //Widget para que se ajuste al tamaño
       flexibleSpace: FlexibleSpaceBar(
         centerTitle: true,
-        //Eliminar el padding
+        //eliminar el padding
         titlePadding: const EdgeInsets.all(0),
         title: Container(
           width: double.infinity,
           alignment: Alignment.bottomCenter,
           color: Colors.black12,
-          child: const Text(
-            'movie.title',
+          child: Text(
+            movie.title,
             style: TextStyle(fontSize: 18),
           ),
         ),
         background: FadeInImage(
-          placeholder: AssetImage('assets/loading.gif'),
-          image: NetworkImage(movie.backImg),
+          placeholder: const AssetImage('assets/loading.gif'),
+          image: NetworkImage(movie.backImage),
         ),
       ),
     );
@@ -67,103 +72,59 @@ class _PosterAndTitle extends StatelessWidget {
     return Container(
       margin: const EdgeInsets.only(top: 20),
       padding: const EdgeInsets.symmetric(horizontal: 20),
-      child: Row(
-        children: [
-          ClipRRect(
-            borderRadius: BorderRadius.circular(20),
-            child: FadeInImage(
-              placeholder: AssetImage('assets/camarita.jpg'),
-              image: NetworkImage(movie.fullPosterImg),
-              height: 250,
-            ),
+      child: Row(children: [
+        ClipRRect(
+          borderRadius: BorderRadius.circular(20),
+          child: FadeInImage(
+            placeholder: AssetImage('assets/no-image.jpg'),
+            image: NetworkImage(movie.fullPosterImg),
+            height: 250,
           ),
-          const SizedBox(width: 20),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  movie.title,
-                  style: TextStyle(fontSize: 30),
-                  overflow: TextOverflow.ellipsis,
-                  maxLines: 2,
+        ),
+        const SizedBox(
+          width: 20,
+        ),
+        Expanded(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                movie.title,
+                style: TextStyle(
+                  fontSize: 30,
+                ),
+                overflow: TextOverflow.ellipsis,
+                maxLines: 2,
+              ),
+              Text(
+                movie.originalTitle,
+                style: TextStyle(
+                  fontSize: 18,
+                ),
+                textAlign: TextAlign.center,
+                overflow: TextOverflow.ellipsis,
+                maxLines: 2,
+              ),
+              Row(children: [
+                Icon(
+                  Icons.star_outline,
+                  size: 20,
+                  color: Color.fromARGB(255, 207, 188, 16),
+                ),
+                SizedBox(
+                  width: 5,
                 ),
                 Text(
-                  movie.originalTitle,
-                  style: TextStyle(fontSize: 18),
+                  movie.voteAverage.toString(),
+                  style: TextStyle(
+                    fontSize: 15,
+                  ),
                   textAlign: TextAlign.center,
                   overflow: TextOverflow.ellipsis,
                   maxLines: 2,
                 ),
-                Row(
-                  children: [
-                    Icon(
-                      Icons.start_outlined,
-                      size: 20,
-                      color: Colors.blue,
-                    ),
-                    SizedBox(width: 5),
-                    Text(
-                      'movie.voteAverage',
-                      style: TextStyle(fontSize: 15),
-                      overflow: TextOverflow.ellipsis,
-                      maxLines: 2,
-                    )
-                  ],
-                )
-              ],
-            ),
-          )
-        ],
-      ),
-    );
-  }
-}
-
-class _Overview extends StatelessWidget {
-  const _Overview({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.symmetric(
-        horizontal: 20,
-        vertical: 10,
-      ),
-      child: const Text(
-        'Velit ex eiusmod eiusmod anim officia aliqua reprehenderit commodo ipsum duis. Ut nulla voluptate Lorem in nulla sit irure. Ea nulla velit nulla pariatur ullamco culpa. Qui dolore labore veniam est culpa. Amet ad occaecat ullamco elit duis nulla mollit. Nisi cillum fugiat Lorem ad dolore dolore sint elit.',
-        textAlign: TextAlign.justify,
-        style: TextStyle(fontSize: 15),
-      ),
-    );
-  }
-}
-
-//Agregamos lo mismo que en movies_slider
-class MovieSlider2 extends StatelessWidget {
-  const MovieSlider2({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    final size = MediaQuery.of(context).size;
-    return Container(
-      width: double.infinity,
-      height: size.height * 0.30,
-      color: Color.fromARGB(255, 194, 191, 47),
-      child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-        const Padding(
-          padding: EdgeInsets.symmetric(
-              horizontal: 20), //separacion Horizontal de 20 pixeles
-          child: Text(
-            'Actores',
-            style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-          ),
-        ),
-        Expanded(
-          child: ListView.builder(
-            scrollDirection: Axis.horizontal,
-            itemCount: 20,
-            itemBuilder: (_, int index) => const _MoviePoster2(),
+              ])
+            ],
           ),
         )
       ]),
@@ -171,39 +132,105 @@ class MovieSlider2 extends StatelessWidget {
   }
 }
 
-//Crear las tarjetas
-class _MoviePoster2 extends StatelessWidget {
-  const _MoviePoster2({super.key});
+class _Overview extends StatelessWidget {
+  final Movie movie;
+  _Overview({super.key, required this.movie});
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 130,
-      height: 210,
-      margin: const EdgeInsets.symmetric(horizontal: 10),
+      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+      child: Text(
+        movie.overview,
+        textAlign: TextAlign.justify,
+        style: TextStyle(fontSize: 15),
+      ),
+    );
+  }
+}
+
+class _Casting extends StatelessWidget {
+  const _Casting({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size; //Variable para el tamaño
+    return Container(
+      width: double.infinity,
+      height: size.height * 0.35,
+      color: Colors.indigo,
       child: Column(
+        //una columna
+        crossAxisAlignment: CrossAxisAlignment.start, //alineacion
         children: [
-          GestureDetector(
-            onTap: () => Navigator.pushNamed(context, 'details', arguments: ''),
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(20),
-              child: const FadeInImage(
-                placeholder: AssetImage('assets/camarita.jpg'),
-                image: AssetImage('assets/camarita.jpg'),
-                width: 130,
-                height: 49,
-              ),
+          const Padding(
+            padding: EdgeInsets.symmetric(
+                //Es para tener una separacion en ambos lados del mismo tamaño (horizontal y vertical)
+                horizontal: 20,
+                vertical: 10),
+            child: Text(
+              //Título de la seccion
+              'Casting: ',
+              style: TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold, //en negritas
+                  color: Colors.white),
             ),
           ),
-          const SizedBox(height: 5),
-          const Text(
-            'Pos ni supe q decia ahi pq creo taba en portugues',
-            maxLines: 3,
-            overflow: TextOverflow.ellipsis,
-            textAlign: TextAlign.center,
-          )
+          Expanded(
+              child: ListView.builder(
+            scrollDirection: Axis.horizontal, //para moverlo a los lados
+            itemCount: 20, //que solo se vean 20
+            itemBuilder: (_, int index) =>
+                const _CastPoster(), //se llama a la lista/contenedor de la foto y nombre
+          ))
         ],
       ),
+    );
+  }
+}
+
+class _CastPoster extends StatelessWidget {
+  //el "_" en el nombre sirve para hacerlo privado
+  const _CastPoster({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      //Contenedor en el que va la foto y el nombre
+      width: 130,
+      height: 250,
+      margin: const EdgeInsets.symmetric(horizontal: 10),
+      child: Column(children: [
+        GestureDetector(
+            //Para que detecte lo que pasa con la imagen
+            // onTap: () => Navigator.pushNamed(context, 'details',
+            //     arguments:
+            //         ''), //El evento, en este caso hace que se muestre otra pantalla
+            child: ClipRRect(
+          borderRadius: BorderRadius.circular(20),
+          child: const FadeInImage(
+            placeholder: AssetImage('assets/no-image.jpg'),
+            image: AssetImage(
+                'assets/no-image.jpg'), //aqui va la foto del actor/actriz
+            width: 130,
+            height: 150,
+          ),
+        )),
+        const SizedBox(
+          //cajita para el nombre del actor
+          height: 5,
+        ),
+        const Text(
+          'Nombre del actor o actriz',
+          maxLines: 2,
+          overflow:
+              TextOverflow.ellipsis, //Para que no salga que es mucho texto
+          textAlign: TextAlign.center,
+          style: TextStyle(
+              color: Colors.white, fontSize: 16, fontWeight: FontWeight.bold),
+        ),
+      ]),
     );
   }
 }
